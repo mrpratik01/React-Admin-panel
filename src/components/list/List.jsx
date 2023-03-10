@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,6 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./list.scss";
+
+
+
+
 
 const rows = [
   {
@@ -52,8 +56,27 @@ const rows = [
 ];
 
 const List = () => {
+
+  const [user, setUser] = useState([]);
+
+  const fetchData = () => {
+    fetch("http://localhost:3001/api/packages").then((response) => {
+      return response.json()
+    }).then((data) => {
+      console.log(data)
+    })
+
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+
+
   return (
     <div className="list">
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
